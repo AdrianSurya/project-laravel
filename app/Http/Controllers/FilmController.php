@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\film;
 use App\Models\Genre;
@@ -31,25 +33,40 @@ class FilmController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StorefilmRequest $request)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:45',
-            'ringkasan' => 'nullable|string',
-            'tahun' => 'required|integer',
-            'poster' => 'nullable|string|max:45',
-            'genre_id' => 'required|exists:genres,id'
-        ]);
+{
+    $validated = $request->validate([
+        'judul' => 'required|string|max:45',
+        'ringkasan' => 'nullable|string',
+        'tahun' => 'required|integer',
+        'poster' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        'genre_id' => 'required|exists:genres,id'
+    ]);
 
-        Film::create($request->all());
-        return redirect()->route('film.index');
+    // Siapkan array data untuk disimpan
+    $data = $validated;
+
+    // Cek apakah ada file yang diupload
+    if ($request->hasFile('poster')) {
+        $foto = $request->file('poster');
+        $filename = time() . '.' . $foto->getClientOriginalExtension();
+        $foto->move(public_path('storage/posters'), $filename);
+        $data['poster'] = 'posters/' . $filename;
     }
+
+    // Simpan data film ke database
+    Film::create($data);
+
+    // Redirect
+    return redirect()->route('film.index')->with('success', 'Film berhasil ditambahkan!');
+}
+
 
     /**
      * Display the specified resource.
      */
     public function show(film $film)
     {
-        //
+        return view('film.show', compact('film'));
     }
 
     /**

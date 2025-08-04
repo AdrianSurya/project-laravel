@@ -12,4 +12,10 @@ class film extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+    
+    public function peran()
+    {
+        return $this->hasMany(peran::class);
+    }
+
 }

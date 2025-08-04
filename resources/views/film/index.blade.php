@@ -22,27 +22,27 @@
         </thead>
         <tbody>
             @foreach($films as $film)
-                <tr>
-                    <td>{{ $film->judul }}</td>
-                    <td>{{ $film->ringkasan }}</td>
-                    <td>{{ $film->tahun }}</td>
-                    <td>{{ $film->genre->nama }}</td>
-                     <td>
-                        @if ($film->poster)
-                            <img src="{{ asset('storage/posters/' . $film->poster) }}" width="80" alt="Poster">
-                        @else
-                            <span class="text-muted">Tidak ada</span>
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('film.edit', $film->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('film.destroy', $film->id) }}" method="POST" class="d-inline">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+    <tr>
+        <td>{{ $film->judul }}</td>
+        <td>{{ $film->ringkasan }}</td>
+        <td>{{ $film->tahun }}</td>
+        <td>{{ $film->genre->nama }}</td>
+        <td>
+        <a href="{{ route('film.show', $film->id) }}" class="btn btn-sm btn-info">Detail</a>
+        </td>
+        
+        <td>
+            <a href="{{ route('film.edit', $film->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <form action="{{ route('film.destroy', $film->id) }}" method="POST" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                    <a href="{{ route('peran.create') }}" class="btn btn-sm btn-primary">Tambah Peran</a>
+                </form>
+        </td>
+
+    </tr>
+@endforeach
+
         </tbody>
     </table>
 @endsection

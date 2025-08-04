@@ -6,8 +6,18 @@
     <h1>Tambah Film</h1>
 @endsection
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 @section('content')
-    <form action="{{ route('film.store') }}" method="POST">
+    <form action="{{ route('film.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label>Judul</label>
@@ -23,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label>Poster</label>
-            <input type="file" name="poster" class="form-control" accept="image/*">
+            <input type="file" name="poster" class="form-control" id="poster">
         </div>
         <div class="mb-3">
             <label>Genre</label>
