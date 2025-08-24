@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\peran;
-use App\Models\Film;
+use App\Models\film;
 use App\Models\Cast;
+use illuminate\Http\Request;
 use App\Http\Requests\StoreperanRequest;
 use App\Http\Requests\UpdateperanRequest;
 
@@ -13,10 +14,14 @@ class PeranController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $perans = Peran::with(['film', 'cast'])->get();
-        return view('peran.index', compact('perans'));
+
+        $films = Film::find($id);
+        $casts = Cast::all();
+
+        $perans = Film::with(['film', 'cast'])->get();
+        return view('peran.create', compact('films', 'casts'));
     }
 
     /**
@@ -24,9 +29,7 @@ class PeranController extends Controller
      */
     public function create(film $film)
     {
-        $films = Film::all();
-        $casts = Cast::all();
-        return view('peran.create', compact('films', 'casts'));
+       //
     }
 
     /**
@@ -74,7 +77,7 @@ class PeranController extends Controller
         ]);
 
         $peran->update($request->all());
-        return redirect()->route('peran.index')->with('success', 'Peran berhasil diperbarui.');
+        return redirect()->route('film.index')->with('success', 'Peran berhasil diperbarui.');
     }
 
     /**
@@ -83,6 +86,6 @@ class PeranController extends Controller
     public function destroy(peran $peran)
     {
         $peran->delete();
-        return redirect()->route('peran.index')->with('success', 'Peran berhasil dihapus.');
+        return redirect()->route('film.index')->with('success', 'Peran berhasil dihapus.');
     }
 }

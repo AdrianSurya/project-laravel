@@ -12,7 +12,7 @@ class peran extends Model
     {
         return $this->belongsTo(Film::class);
     }
-
+    
     public function cast()
     {
         return $this->belongsTo(Cast::class);

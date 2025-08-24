@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreperanRequest extends FormRequest
+class StoreAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,9 @@ class StoreperanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required|string|max:255',
-            'film_id' => 'required|exists:films,id',
-            'cast_id' => 'required|exists:casts,id',
-            'peran' => 'required|string|min:3',
+            //
+            'email'     => 'required',
+            'password'  => 'required',
         ];
     }
 }

@@ -7,30 +7,16 @@
 @endsection
 
 @section('content')
-<form action="{{ route('peran.store') }}" method="POST">
-    @csrf
-    <div class="mb-3">
-    <label>Film</label>
-    <select name="film_id" class="form-control" required>
-        @foreach($films as $film)
-            <option value="{{ $film->id }}">{{ $film->judul }}</option>
-        @endforeach
-    </select>
-    </div>
-
-    <div class="mb-3">    
-    <label>Cast</label>
-    <select name="cast_id" class="form-control" required>
-        @foreach($casts as $cast)
-            <option value="{{ $cast->id }}">{{ $cast->nama }}</option>
-        @endforeach
-    </select>
-    </div>
-
-    <div class="mb-3">
-    <label>Nama Peran</label>
-    <input type="text" name="nama" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-success">Simpan</button>
-</form>
-@endsection
+    <form action="{{ route('peran.create') }}" method="POST" enctype="multipart/form-data" value="{{ $film->id }}">
+        @csrf
+        <div class="mb-3">
+            <label>Nama Cast</label>
+            <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Nama Peran</label>
+                <input type="text" name="peran" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Simpan</button>
+        </form>
+    @endsection

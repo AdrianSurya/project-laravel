@@ -36,7 +36,8 @@
                 <form action="{{ route('film.destroy', $film->id) }}" method="POST" class="d-inline">
                     @csrf @method('DELETE')
                     <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                    <a href="{{ route('peran.create') }}" class="btn btn-sm btn-primary">Tambah Peran</a>
+                    <a href="{{ route('peran.create', $film->id) }}" class="btn btn-primary btn-sm">
+                    Tambah Peran</a>
                 </form>
         </td>
 

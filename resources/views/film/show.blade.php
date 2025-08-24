@@ -22,7 +22,7 @@
                 <p class="text-muted">Tidak ada poster</p>
             @endif
             <h4>Daftar Peran</h4>
-            @if ($film->perans->count())
+            @if ($film->perans)
                 <table class="table table-bordered">
                     <thead>
                         <tr>
